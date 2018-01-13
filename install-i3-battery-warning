@@ -1,0 +1,21 @@
+#!/bin/bash
+
+if [ ! -x ~/.i3/i3-battery-warning ]
+then
+	if [[ -r i3-battery-warning.cpp ]]
+	then
+		g++ i3-battery-warning.cpp -o i3-battery-warning
+		if [ $? -eq 0 ]
+		then
+			cp i3-battery-warning ~/.i3/
+			echo "exec --no-startup-id ~/.i3/i3-battery-warning" >> ~/.i3/config
+		else
+			echo "Cannot compile source code"
+			echo $?
+		fi
+	else
+		echo "No source code to compile"
+	fi
+else
+	echo "i3-battery-warning is already installed"
+fi
