@@ -1,5 +1,21 @@
 #!/bin/bash
 
+if [ "`command -v notify-send`" = 0 ]
+then
+	sudo apt-get install notify-osd > /dev/null;
+	if [ ! $? -eq 0 ]
+	then
+		echo "Cannot install notify-osd package. Try manual installation."
+		exit
+	fi
+fi
+
+if [ "`command -v i3`" = 0 ]
+then
+	echo "i3 is not installed. Try manual installation, by compiling i3-battery-warning.cpp and executing the executable from your init scripts"
+	exit
+fi
+
 if [ ! -x ~/.i3/i3-battery-warning ]
 then
 	if [[ -r i3-battery-warning.cpp ]]
