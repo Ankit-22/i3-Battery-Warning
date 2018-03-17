@@ -37,8 +37,14 @@ static void skeleton_daemon()
 int check_battery()
 {
 	char command_output[1000];
+	char charging[1000];
 	char percentage_string[100];
-	FILE *f = popen("upower -i `upower -e | grep BAT` | grep percentage", "r");
+	FILE *f = popen("upower -i `upower -e | grep BAT` | grep -E 'percentage|state'", "r");
+	fgets(charging, sizeof(charging), f);
+	sscanf(charging, "%s%s", command_output, charging);
+	if(!strcmp(charging, "charging")) {
+		return -1;
+	}
 	fgets(command_output, sizeof(command_output), f);
 	pclose(f);
 	sscanf(command_output, "%s%s", command_output, percentage_string);
@@ -55,6 +61,7 @@ int main()
 
 	while (1)
 	{
+		if(check_battery() == -1) continue;
 		if(check_battery() <=1 && notice_level <= 6) {
 			system("notify-send \"Bye Bye!\" -u critical");
 			notice_level = 6;
