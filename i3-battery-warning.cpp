@@ -61,8 +61,7 @@ int main()
 
 	while (1)
 	{
-		if(check_battery() == -1) continue;
-		if(check_battery() <=1 && notice_level <= 6) {
+		if(check_battery() <=1 && notice_level <= 6 && check_battery() >= 0) {
 			system("notify-send \"Bye Bye!\" -u critical");
 			notice_level = 6;
 		}
@@ -71,7 +70,7 @@ int main()
 			notice_level = 6;
 		}
 		if(check_battery() <=3 && notice_level <= 4) {
-			system("notify-send \"Cummon you lazy peice of shit!! battery 3%\" -u critical");
+			system("notify-send \"Cummon you lazy peice of sh*t!! battery 3%\" -u critical");
 			notice_level = 5;
 		}
 		if(check_battery() <=5 && notice_level <= 3) {
