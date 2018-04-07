@@ -28,10 +28,13 @@ then
 		else
 			echo "Cannot compile source code"
 			echo $?
+			exit
 		fi
 	else
 		echo "No source code to compile"
+		exit
 	fi
 else
 	echo "i3-battery-warning is already installed"
+	exit
 fi

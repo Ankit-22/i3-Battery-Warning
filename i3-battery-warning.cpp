@@ -43,7 +43,7 @@ int check_battery()
 	fgets(charging, sizeof(charging), f);
 	sscanf(charging, "%s%s", command_output, charging);
 	if(!strcmp(charging, "charging")) {
-		return -1;
+		return 101;
 	}
 	fgets(command_output, sizeof(command_output), f);
 	pclose(f);
